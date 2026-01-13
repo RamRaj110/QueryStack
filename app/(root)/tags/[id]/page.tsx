@@ -50,7 +50,7 @@ const TagDetails = async ({ params, searchParams }: RouteParams) => {
             <div className="mt-4 flex items-center gap-2">
               <span className="text-sm text-muted-foreground">
                 <span className="font-semibold text-primary">
-                  {tag.questions || 0}
+                  {tag.questionCount || 0}
                 </span>{" "}
                 Questions
               </span>
