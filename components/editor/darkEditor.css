@@ -1,0 +1,78 @@
+@reference "tailwindcss";
+
+@layer utilities {
+  /* Override MDXEditor Variables to match Shadcn/Tailwind */
+  .markdown-editor {
+    background-color: var(--background);
+    border: 1px solid var(--input);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: grid;
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .markdown-editor:focus-within {
+    ring: 2px solid rgb(from var(--primary) r g b / 0.5);
+    transition: all;
+  }
+
+  /* Toolbar Styling */
+  .mdxeditor-toolbar {
+    background-color: rgb(from var(--secondary) r g b / 0.5);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem;
+  }
+  
+  /* Button Styling inside toolbar */
+  .mdxeditor-toolbar button {
+    color: var(--muted-foreground);
+    border-radius: 0.375rem;
+    transition: all;
+  }
+
+  .mdxeditor-toolbar button:hover {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  
+  .mdxeditor-toolbar button[data-state="on"] {
+    background-color: rgb(from var(--primary) r g b / 0.2);
+    color: var(--primary);
+  }
+
+  /* Content Area */
+  .mdxeditor-content-editable {
+    padding: 1rem;
+    min-height: 300px;
+    color: var(--foreground);
+  }
+
+  /* Dark Mode Specific Overrides for Code Blocks */
+  .dark-theme .cm-scroller {
+    background-color: #020617;
+  }
+  
+  .dark-theme .cm-gutters {
+    background-color: #020617;
+    border-right: 1px solid #1e293b;
+    color: #64748b;
+  }
+
+  /* Dropdowns/Dialogs (Link, Table, etc) */
+ .mdxeditor-popup-container {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  position: fixed !important; /* Changed from absolute to fixed */
+  z-index: 50 !important;
+  max-width: min(400px, 90vw) !important; /* Constrain to viewport width */
+  max-height: min(400px, 80vh) !important; /* Constrain to viewport height */
+  overflow: auto !important;
+  padding: 0.75rem !important;
+  inset: auto !important; /* Reset any positioning */
+}
+
+}
