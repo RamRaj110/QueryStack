@@ -9,7 +9,11 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const { question, content, userAnswer } = await req.json();
   try {
-    const validatedData = AIAnswerSchema.safeParse({ question, content});
+    const validatedData = AIAnswerSchema.safeParse({
+      question,
+      content,
+      userAnswer,
+    });
     if (!validatedData.success) {
       throw new ValidationError(validatedData.error.flatten().fieldErrors);
     }
@@ -17,10 +21,12 @@ export async function POST(req: Request) {
     const { text } = await generateText({
       model: openai("gpt-4o-mini"),
       prompt: `Generate a markdown-fomatted response to the following question: ${question}.Base it on the provided content:${content}
-      also, prioritize and incorporate the user's asnwer when formating your responseP:**User's Answer:** ${userAnswer}
+      also, prioritize and incorporate the user's asnwer when formating your responseP:**User's Answer:** ${
+        userAnswer || ""
+      }
       Prioritize the user's answer only if it's correct. If it's incomplete or incorrect, improve or correct it while keeping the response concise and to the point. Provide the final asnwer in mardown format.,
       `,
-      system:'...'
+      system: "...",
     });
     return NextResponse.json({ success: true, data: text }, { status: 200 });
   } catch (error) {

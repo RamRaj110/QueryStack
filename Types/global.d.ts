@@ -1,21 +1,21 @@
 import { NextResponse } from "next/server";
 import { Action } from "sonner";
 
-interface Author {
+export interface Author {
   _id: string;
   id?: string;
   name: string;
   image?: string;
 }
 
-interface Tag {
+export interface Tag {
   _id: string;
   id?: string;
   name: string;
   questions?: number;
 }
 
-interface Question {
+export interface Question {
   _id: string;
   id?: string;
   title: string;
@@ -30,7 +30,7 @@ interface Question {
   createdAt: string;
 }
 
-interface ActionResponse<T = null> {
+export interface ActionResponse<T = null> {
   success: boolean;
   data?: T;
   error?: {
@@ -38,22 +38,25 @@ interface ActionResponse<T = null> {
     details?: Record<string, string[]>;
   };
   status?: number;
+  message?: string;
 }
 
-type SuccessResponse<T = null> = ActionResponse<T> & {
+export type SuccessResponse<T = null> = ActionResponse<T> & {
   success: true;
 };
-type ErrorResponse = ActionResponse<undefined> & { success: false };
+export type ErrorResponse = ActionResponse<undefined> & { success: false };
 
-type APIErrorResponse = NextResponse<ErrorResponse>;
-type APIResponse<T = null> = NextResponse<SuccessResponse<T> | ErrorResponse>;
+export type APIErrorResponse = NextResponse<ErrorResponse>;
+export type APIResponse<T = null> = NextResponse<
+  SuccessResponse<T> | ErrorResponse
+>;
 
-interface RouteParams {
+export interface RouteParams {
   params: Promise<Record<string, string>>;
   searchParams: Promise<Record<string, string>>;
 }
 
-interface PaginatedSearchParams {
+export interface PaginatedSearchParams {
   page?: number;
   pageSize?: number;
   query?: string;
@@ -61,7 +64,7 @@ interface PaginatedSearchParams {
   sort?: string;
 }
 
-interface Answers {
+export interface Answers {
   _id: string;
   id?: string;
   content: string;
@@ -73,7 +76,7 @@ interface Answers {
   hasMoreAnswer: boolean;
 }
 
-interface User {
+export interface User {
   _id: string;
   id?: string;
   name: string;
@@ -87,14 +90,14 @@ interface User {
   createdAt?: Date | string;
 }
 
-interface Collection {
+export interface Collection {
   _id: string;
   id?: string;
   author: string | Author;
   question: Question;
 }
 
-interface BadgeCounts {
+export interface BadgeCounts {
   GOLD: number;
   SILVER: number;
   BRONZE: number;

@@ -19,7 +19,6 @@ const MobileNavigation = async () => {
 
   return (
     <Sheet>
-      {/* Trigger Button */}
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -30,13 +29,10 @@ const MobileNavigation = async () => {
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-
-      {/* Sheet Content - Opens from Left */}
       <SheetContent
         side="left"
         className="w-[300px] border-r border-border bg-background/95 backdrop-blur-xl"
       >
-        {/* Header: Logo & Brand Name */}
         <SheetHeader className="text-left py-4">
           <SheetTitle asChild>
             <Link
@@ -63,8 +59,6 @@ const MobileNavigation = async () => {
         <div className="">
           <NavLink isMobileNav />
         </div>
-
-        {/* Authentication Buttons */}
         <div className="mt-8 flex flex-col gap-3">
           {userId ? (
             <form
@@ -84,7 +78,6 @@ const MobileNavigation = async () => {
             </form>
           ) : (
             <>
-              {/* Login Button */}
               <Link href={ROUTES.SIGNIN || "/signin"}>
                 <Button
                   variant="outline"
@@ -94,8 +87,6 @@ const MobileNavigation = async () => {
                   <span>Log In</span>
                 </Button>
               </Link>
-
-              {/* Sign Up Button */}
               <Link href={ROUTES.SIGNUP || "/signup"}>
                 <Button className="h-11 w-full justify-start gap-3 rounded-xl bg-primary px-4 font-heading font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 active:scale-[0.98]">
                   <UserPlus size={20} />

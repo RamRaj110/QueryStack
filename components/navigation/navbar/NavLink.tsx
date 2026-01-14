@@ -60,8 +60,6 @@ function NavLink({
                 size: 20,
               })}
             </span>
-
-            {/* Label */}
             <p
               className={`
                 font-body

@@ -121,7 +121,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        {/* Profile Image Preview */}
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
           <div className="relative">
             <div className="relative rounded-full border-4 border-background p-1.5 shadow-xl ring-2 ring-primary/20">
@@ -152,8 +151,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             </p>
           </div>
         </div>
-
-        {/* File Upload Section */}
         <div className="space-y-4">
           <input
             ref={fileInputRef}
@@ -190,8 +187,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             <div className="flex-1 border-t border-border/40" />
           </div>
         </div>
-
-        {/* Image URL Field */}
         <FormField
           control={form.control}
           name="image"
@@ -220,8 +215,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             </FormItem>
           )}
         />
-
-        {/* Name Field */}
         <FormField
           control={form.control}
           name="name"
@@ -242,8 +235,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             </FormItem>
           )}
         />
-
-        {/* Username Field (Read-only) */}
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <span className="text-primary font-bold">@</span>
@@ -258,8 +249,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             Username cannot be changed
           </p>
         </div>
-
-        {/* Email Field (Read-only) */}
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <span className="text-muted-foreground">✉️</span>
@@ -274,8 +263,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             Email cannot be changed
           </p>
         </div>
-
-        {/* Bio Field */}
         <FormField
           control={form.control}
           name="bio"
@@ -299,8 +286,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             </FormItem>
           )}
         />
-
-        {/* Location Field */}
         <FormField
           control={form.control}
           name="location"
@@ -321,8 +306,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
             </FormItem>
           )}
         />
-
-        {/* Portfolio Field */}
         <FormField
           control={form.control}
           name="portfolio"
@@ -344,7 +327,6 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
           )}
         />
 
-        {/* Action Buttons */}
         <div className="flex flex-col-reverse gap-4 pt-4 sm:flex-row sm:justify-end">
           <Button
             type="button"

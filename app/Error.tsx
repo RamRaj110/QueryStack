@@ -11,7 +11,6 @@ interface ErrorProps {
 
 const ErrorPage = ({ error, reset }: ErrorProps) => {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error("Application Error:", error);
   }, [error]);
 

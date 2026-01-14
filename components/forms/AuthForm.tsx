@@ -74,7 +74,6 @@ const AuthForm = (props: AuthFormProps) => {
       );
 
       if (formType === "SIGNUP") {
-        // Sign in the user after successful signup
         await signIn("credentials", {
           email: (data as SignUpFormData).email,
           password: (data as SignUpFormData).password,
@@ -83,7 +82,6 @@ const AuthForm = (props: AuthFormProps) => {
       }
 
       if (formType === "SIGNIN") {
-        // Sign in the user after successful validation
         await signIn("credentials", {
           email: (data as SignInFormData).email,
           password: (data as SignInFormData).password,
@@ -151,8 +149,6 @@ const AuthForm = (props: AuthFormProps) => {
             );
           }
         )}
-
-        {/* Submit Button */}
         <Button
           disabled={isLoading}
           className="w-full h-11 rounded-xl bg-primary font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-[background-color,box-shadow,transform] duration-300 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] disabled:opacity-50"
@@ -167,8 +163,6 @@ const AuthForm = (props: AuthFormProps) => {
             buttonText
           )}
         </Button>
-
-        {/* Footer Links */}
         {formType === "SIGNIN" ? (
           <p className="text-sm text-center text-muted-foreground pt-2">
             Don&apos;t have an account?{" "}

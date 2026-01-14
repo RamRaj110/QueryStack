@@ -36,7 +36,6 @@ const UserAvatar = ({
       <Avatar className={className}>
         {imageUrl && !imgError ? (
           imageUrl.startsWith("data:image/") ? (
-            // Use regular img tag for base64 images
             <Image
               src={imageUrl}
               alt={name}
@@ -46,7 +45,6 @@ const UserAvatar = ({
               onError={() => setImgError(true)}
             />
           ) : (
-            // Use Next.js Image for external URLs
             <Image
               src={imageUrl}
               alt={name}

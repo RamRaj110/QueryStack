@@ -11,12 +11,9 @@ const LeftSideBar = async () => {
   const userId = session?.user?.id;
   return (
     <section className="sticky left-0 top-16 hidden h-[calc(100vh-64px)] flex-col justify-between overflow-y-auto border-r border-border/40 bg-background/60 pt-8 pb-6 shadow-sm backdrop-blur-xl transition-[width,background-color,border-color] duration-300 ease-in-out md:flex md:w-20 lg:w-64">
-      {/* Top Section: Navigation */}
       <div className="flex flex-col gap-4 px-2 lg:px-4">
         <NavLink userId={userId} />
       </div>
-
-      {/* Bottom Section: Auth Buttons */}
       <div className="flex flex-col gap-3 px-2 lg:px-4">
         {userId ? (
           <form

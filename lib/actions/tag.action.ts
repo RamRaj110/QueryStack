@@ -2,6 +2,7 @@ import {
   ActionResponse,
   ErrorResponse,
   PaginatedSearchParams,
+  Question as QuestionType,
 } from "@/Types/global";
 import action from "../handlers/action";
 import {
@@ -80,7 +81,7 @@ export const getTags = async (
 export const getTagQuestions = async (
   params: GetTagQuestionsParams
 ): Promise<
-  ActionResponse<{ tag: ITag; questions: IQuestion[]; isNext: boolean }>
+  ActionResponse<{ tag: ITag; questions: QuestionType[]; isNext: boolean }>
 > => {
   const validationResult = await action({
     params,

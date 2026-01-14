@@ -18,14 +18,11 @@ const SaveQuestion = ({
   const session = useSession();
   const userId = session?.data?.user?.id;
 
-  // 1. Unwrap the promise to get the initial server state
   const { data } = use(hasSavedPromise);
 
-  // 2. Create local state to manage UI updates immediately
   const [isSaved, setIsSaved] = useState(data?.saved || false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Sync state if the server promise data changes (edge case handling)
   useEffect(() => {
     setIsSaved(data?.saved || false);
   }, [data]);
@@ -50,7 +47,6 @@ const SaveQuestion = ({
         return toast.error(error?.message || "Failed to save question");
       }
 
-      // 3. Update local state based on server response
       setIsSaved(updatedData?.saved || false);
 
       toast.success(
@@ -73,17 +69,14 @@ const SaveQuestion = ({
       onClick={handleSave}
       disabled={isLoading}
     >
-      {/* 4. Conditional Rendering for the Star Icon */}
       <Star
         size={18}
         className={`mr-1 transition-colors duration-200 ${
           isSaved
-            ? "text-primary fill-current" // <<-- SAVED STATE: Solid Fill
-            : "text-muted-foreground fill-none" // <<-- UNSAVED STATE: Transparent Fill
+            ? "text-primary fill-current"
+            : "text-muted-foreground fill-none"
         }`}
       />
-      {/* Optional: Add text label if needed */}
-      {/* <span>{isSaved ? "Saved" : "Save"}</span> */}
     </Button>
   );
 };

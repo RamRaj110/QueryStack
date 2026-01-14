@@ -41,15 +41,11 @@ const Editor = ({ value, fieldChange, editorRef }: EditorProps) => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration issues
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // Conditionally load the dark theme extension for CodeMirror
   const themeExtensions = resolvedTheme === "dark" ? [basicDark] : [];
 
-  // Prevent rendering until mounted to avoid hydration mismatch
   if (!mounted) {
     return (
       <div className="w-full min-h-[400px] rounded-xl border border-border/50 bg-secondary/10 animate-pulse flex items-center justify-center">

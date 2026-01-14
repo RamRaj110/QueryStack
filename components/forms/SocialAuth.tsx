@@ -17,7 +17,6 @@ function SocialAuth() {
   };
   return (
     <div className="mt-6">
-      {/* Divider */}
       <div className="relative mb-6">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t border-border" />
@@ -28,10 +27,7 @@ function SocialAuth() {
           </span>
         </div>
       </div>
-
-      {/* Social Buttons Grid */}
       <div className="grid grid-cols-2 gap-4">
-        {/* Github Button */}
         <button
           className="flex items-center justify-center gap-2 rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"
           type="button"
@@ -48,8 +44,6 @@ function SocialAuth() {
           </svg>
           <span className="hidden sm:inline">GitHub</span>
         </button>
-
-        {/* Google Button */}
         <button
           onClick={() => handleSignIn("google")}
           className="flex items-center justify-center gap-2 rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors"

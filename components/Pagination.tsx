@@ -19,8 +19,6 @@ const Pagination = ({ page = 1, isNext, containerClasses }: Props) => {
   const handleClick = (type: "prev" | "next") => {
     const nextPageNumber =
       type === "prev" ? Number(page) - 1 : Number(page) + 1;
-
-    // Ensure we don't go below 1
     const value = nextPageNumber > 1 ? nextPageNumber.toString() : "1";
 
     const newUrl = formUrlQuery({
@@ -28,7 +26,7 @@ const Pagination = ({ page = 1, isNext, containerClasses }: Props) => {
       key: "page",
       value,
     });
-    router.push(newUrl, { scroll: false }); // Added scroll: false for smoother feel
+    router.push(newUrl, { scroll: false });
   };
 
   return (
@@ -38,29 +36,25 @@ const Pagination = ({ page = 1, isNext, containerClasses }: Props) => {
         containerClasses
       )}
     >
-      {/* PREV BUTTON */}
       <Button
         variant="outline"
         size="sm"
-        disabled={Number(page) <= 1} // Disable instead of hiding for better layout stability
+        disabled={Number(page) <= 1}
         onClick={() => handleClick("prev")}
         className={cn(
           "min-h-[36px] min-w-[36px] px-4 gap-2 border-border transition-all",
-          Number(page) <= 1 && "opacity-0 pointer-events-none" // Or remove this line to show disabled state
+          Number(page) <= 1 && "opacity-0 pointer-events-none"
         )}
       >
         <ChevronLeft size={16} />
         <span className="max-sm:hidden">Prev</span>
       </Button>
-
-      {/* PAGE NUMBER INDICATOR */}
       <div className="flex items-center justify-center rounded-md bg-primary px-3.5 py-2">
         <p className="body-semibold text-primary-foreground font-bold text-sm">
           {page}
         </p>
       </div>
 
-      {/* NEXT BUTTON */}
       <Button
         variant="outline"
         size="sm"

@@ -9,7 +9,7 @@ interface SignWithOAuthParams {
   };
 }
 
-interface AuthCredentials {
+export interface AuthCredentials {
   name: string;
   username: string;
   email: string;
@@ -82,6 +82,10 @@ interface CreateAnswerParams {
 
 interface GetAnswerParams extends PaginatedSearchParams {
   questionId: string;
+}
+
+interface DeleteAnswerParams {
+  answerId: string;
 }
 
 interface CreateVoteParams {

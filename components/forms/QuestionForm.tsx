@@ -158,8 +158,6 @@ const QuestionForm = ({ question, isEdit = false }: Params) => {
             </FormItem>
           )}
         />
-
-        {/* Content Field */}
         <FormField
           control={form.control}
           name="content"
@@ -181,8 +179,6 @@ const QuestionForm = ({ question, isEdit = false }: Params) => {
             </FormItem>
           )}
         />
-
-        {/* Tags Field */}
         <FormField
           control={form.control}
           name="tags"

@@ -40,12 +40,8 @@ const AnswerCard = ({
         containerClass
       )}
     >
-      {/* Decorative Gradient on Hover */}
       <div className="absolute inset-0 -z-10 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-xl" />
-
       <span id={`answer-${_id}`} className="absolute -top-20" />
-
-      {/* --- Top Row: Author & Actions --- */}
       <div className="flex items-center justify-between gap-4">
         <Link
           href={ROUTES.PROFILE(author?._id)}
@@ -83,8 +79,6 @@ const AnswerCard = ({
               <EditDeleteAction id={_id} type="answer" />
             </div>
           )}
-
-          {/* Votes - Desktop Position */}
           <div className="hidden sm:block">
             <Suspense
               fallback={
@@ -102,13 +96,9 @@ const AnswerCard = ({
           </div>
         </div>
       </div>
-
-      {/* --- Answer Content --- */}
       <div className="mt-2 prose prose-sm dark:prose-invert max-w-none text-foreground leading-relaxed font-body">
         <Preview content={content} />
       </div>
-
-      {/* --- Footer Area --- */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-4 border-t border-border/50 pt-6">
         {showMore && question && (
           <Link
@@ -118,8 +108,6 @@ const AnswerCard = ({
             Read full answer →
           </Link>
         )}
-
-        {/* Votes - Mobile Position */}
         <div className="flex justify-end sm:hidden">
           <Suspense
             fallback={

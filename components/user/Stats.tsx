@@ -24,7 +24,6 @@ function Stats({
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {/* --- Questions Card --- */}
         <div className="group relative flex items-center gap-5 rounded-2xl border border-border/50 bg-card p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg dark:bg-card/40 dark:hover:bg-card/60">
           <div className="absolute inset-0 -z-10 bg-linear-to-br from-blue-500/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-2xl" />
           <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-500/10 text-blue-500 transition-transform group-hover:scale-110">
@@ -39,8 +38,6 @@ function Stats({
             </p>
           </div>
         </div>
-
-        {/* --- Answers Card --- */}
         <div className="group relative flex items-center gap-5 rounded-2xl border border-border/50 bg-card p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg dark:bg-card/40 dark:hover:bg-card/60">
           <div className="absolute inset-0 -z-10 bg-linear-to-br from-orange-500/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-2xl" />
           <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500 transition-transform group-hover:scale-110">
@@ -55,8 +52,6 @@ function Stats({
             </p>
           </div>
         </div>
-
-        {/* --- Reputation Card (Placeholder for now) --- */}
         <div className="group relative flex items-center gap-5 rounded-2xl border border-border/50 bg-card p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg dark:bg-card/40 dark:hover:bg-card/60">
           <div className="absolute inset-0 -z-10 bg-linear-to-br from-yellow-500/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-2xl" />
           <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-yellow-500/10 text-yellow-500 transition-transform group-hover:scale-110">

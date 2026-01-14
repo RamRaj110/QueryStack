@@ -13,7 +13,6 @@ const Navbar = async () => {
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/60 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
-          {/* --- Brand / Logo --- */}
           <Link
             href="/"
             className="group flex items-center justify-center gap-1.5 transition-transform hover:scale-[1.02]"
@@ -35,8 +34,6 @@ const Navbar = async () => {
               </span>
             </p>
           </Link>
-
-          {/* --- Search Bar --- */}
           <div className="flex flex-1 items-center justify-center max-w-md mx-auto">
             <div className="group relative w-full translate-z-0">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
@@ -52,8 +49,6 @@ const Navbar = async () => {
               />
             </div>
           </div>
-
-          {/* --- Actions --- */}
           <div className="flex items-center gap-3">
             <div className="hidden sm:block">
               <Theme />

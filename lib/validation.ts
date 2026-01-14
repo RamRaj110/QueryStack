@@ -101,8 +101,8 @@ export const UserSchema = z.object({
 
 export const AccountValidationSchema = z.object({
   userId: z
-    .custom<Types.ObjectId>((val) => Types.ObjectId.isValid(val))
-    .refine((val) => !!val, { message: "Invalid ObjectId" })
+    .string()
+    .regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid ObjectId format" })
     .describe("Reference to the owning User document"),
   name: z.string().min(1, { message: "Name is required" }),
   image: z.string().url().optional().or(z.literal("")),
@@ -206,7 +206,7 @@ export const AIAnswerSchema = z.object({
   question: z
     .string()
     .min(1, { message: "Question is required" })
-    .max(500, { message: "Question has to be at least 500 characters long." }),
+    .max(500, { message: "Question has to be at most 500 characters long." }),
   content: z
     .string()
     .min(100, { message: "Answer has to be at least 100 characters long." }),
@@ -267,15 +267,15 @@ export const UpdateProfileSchema = z.object({
     .max(300, { message: "Bio must be at most 300 characters long" })
     .optional(),
 
-  image: z
-    .string()
-    .refine(
-      (val) => {
-        // Allow base64 data URLs or regular URLs
-        return val.startsWith("data:image/") || z.string().url().safeParse(val).success;
-      },
-      { message: "Image must be a valid URL or base64 image" }
-    ),
+  image: z.string().refine(
+    (val) => {
+      // Allow base64 data URLs or regular URLs
+      return (
+        val.startsWith("data:image/") || z.string().url().safeParse(val).success
+      );
+    },
+    { message: "Image must be a valid URL or base64 image" }
+  ),
 
   location: z
     .string()

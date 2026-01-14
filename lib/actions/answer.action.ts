@@ -7,7 +7,11 @@ import {
   IAnswerDoc,
 } from "@/Types/action";
 import { ActionResponse, Answers, ErrorResponse } from "@/Types/global";
-import { AnswerSeverSchema, DeleteAnswerSchema, GetAnswerSchema } from "../validation";
+import {
+  AnswerSeverSchema,
+  DeleteAnswerSchema,
+  GetAnswerSchema,
+} from "../validation";
 import handleError from "../handlers/errors";
 import action from "../handlers/action";
 import mongoose from "mongoose";

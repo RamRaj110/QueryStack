@@ -8,14 +8,6 @@ import DataRenderer from "../DataRenderer";
 import { getTopTags } from "@/lib/actions/tag.action";
 
 const RightSideBar = async () => {
-  // const { success, data: hotQuestions, error } = await getHotQuestions();
-  // const {
-  //   success: tagSuccess,
-  //   data: tags,
-  //   error: tagError,
-  // } = await getTopTags();
-
-  // Optemize this code
   const [
     { success, data: hotQuestions, error },
     { success: tagSuccess, data: tags, error: tagError },
@@ -64,7 +56,6 @@ const RightSideBar = async () => {
         </div>
       </div>
 
-      {/* --- Popular Tags Section --- */}
       <div className="mt-12 flex flex-col gap-8">
         <div className="flex items-center gap-3">
           <div className="h-6 w-1 rounded-full bg-linear-to-b from-indigo-500 to-indigo-500/40" />

@@ -78,12 +78,16 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
     try {
       const { success, data, error } = await api.ai.getAnswer(
         questionTitle,
-        questionContent
+        questionContent,
+        form.getValues("content")
       );
-      if (!success) {
-        return toast.error("Something went wrong");
+      if (!success || !data) {
+        return toast.error(error?.message || "Something went wrong");
       }
-      const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
+      const formattedAnswer = data
+        .replace(/\u003cbr\u003e/g, " ")
+        .toString()
+        .trim();
       if (editorRef.current) {
         editorRef.current.setMarkdown(formattedAnswer);
         form.setValue("content", formattedAnswer);

@@ -4,16 +4,12 @@ import remarkGfm from "remark-gfm";
 import { Code } from "bright";
 import { AlertCircle, FileText } from "lucide-react";
 import "./codeBlock.css";
-
-// Configure Bright theme for VSCode-like appearance
 Code.theme = {
   light: "github-light",
   dark: "github-dark",
   lightSelector: "html.light",
   darkSelector: "html.dark",
 };
-
-// Custom code block component wrapper
 const CodeBlock = ({ children, ...props }: any) => {
   return (
     <div className="not-prose my-4 rounded-xl overflow-hidden border border-border/40 shadow-sm">
@@ -22,7 +18,6 @@ const CodeBlock = ({ children, ...props }: any) => {
   );
 };
 
-// Custom inline code component
 const InlineCode = ({ children }: any) => {
   return (
     <code className="px-1.5 py-0.5 rounded bg-secondary/80 text-primary font-mono text-sm border border-border/30">
@@ -44,7 +39,6 @@ function sanitizeForMDX(content: string): string {
 
     return parts
       .map((part, index) => {
-        // Don't sanitize code blocks (odd indices)
         if (index % 2 === 1) return part;
 
         return part
@@ -87,9 +81,7 @@ const Preview = async ({ content }: Props) => {
         },
       },
       components: {
-        // Code blocks with syntax highlighting
         pre: ({ children }: any) => {
-          // Extract code element from pre
           const codeElement = React.Children.toArray(children).find(
             (child: any) => child?.type === "code"
           );
@@ -113,13 +105,10 @@ const Preview = async ({ content }: Props) => {
 
           return <pre className="overflow-auto">{children}</pre>;
         },
-        // Inline code
         code: ({ children, className }: any) => {
-          // If it has a language class, it's a block (handled by pre)
           if (className?.startsWith("language-")) {
             return <code className={className}>{children}</code>;
           }
-          // Otherwise it's inline code
           return <InlineCode>{children}</InlineCode>;
         },
       },

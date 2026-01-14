@@ -30,11 +30,9 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
 
   return (
     <div className="group relative flex flex-col gap-4 rounded-2xl border border-border/50 bg-card/50 p-6 shadow-sm transition-[transform,border-color,box-shadow,background-color] duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 dark:bg-card/20 sm:p-8 backdrop-blur-sm">
-      {/* Decorative Gradient on Hover */}
       <div className="absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div className="absolute inset-0 -z-10 bg-linear-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-[opacity,background-color] duration-500 group-hover:opacity-100 rounded-2xl" />
 
-      {/* --- Top Row: Timestamp & Actions --- */}
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
@@ -52,7 +50,6 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
         )}
       </div>
 
-      {/* --- Title --- */}
       <Link
         href={ROUTES.QUESTION ? ROUTES.QUESTION(_id) : "#"}
         className="block group/title"
@@ -62,23 +59,19 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
         </h3>
       </Link>
 
-      {/* --- Description --- */}
       <div className="w-full">
         <p className="font-body text-sm leading-relaxed text-muted-foreground/80 line-clamp-2">
           {description || content || "No description provided."}
         </p>
       </div>
 
-      {/* --- Tags --- */}
       <div className="flex flex-wrap gap-2">
         {tags.map((tag, index) => (
           <TagCard key={index} id={tag._id} name={tag.name} compact={true} />
         ))}
       </div>
 
-      {/* --- Footer --- */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-4 border-t border-border/40 pt-6">
-        {/* Author */}
         {author ? (
           <Link
             href={ROUTES.PROFILE(author._id)}

@@ -25,9 +25,7 @@ const AllAnswers = ({
 }: Props) => {
   return (
     <div className="mt-8 sm:mt-11">
-      {/* --- Header Section --- */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {/* Answer Count with Icon */}
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
             <MessageCircle className="h-4 w-4 text-primary" />
@@ -39,8 +37,6 @@ const AllAnswers = ({
             </span>
           </h3>
         </div>
-
-        {/* Filter Dropdown */}
         <div className="w-full sm:w-auto">
           <CommonFilter
             filters={AnswerFilters}
@@ -49,11 +45,7 @@ const AllAnswers = ({
           />
         </div>
       </div>
-
-      {/* --- Divider --- */}
       <div className="my-6 h-px bg-border" />
-
-      {/* --- Answer List --- */}
       <DataRenderer
         data={data}
         success={success}
@@ -67,8 +59,6 @@ const AllAnswers = ({
           </div>
         )}
       />
-
-      {/* --- Pagination --- */}
       {data && data.length > 0 && (
         <Pagination page={page} isNext={isNext || false} />
       )}

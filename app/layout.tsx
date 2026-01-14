@@ -9,11 +9,17 @@ import { auth } from "@/auth";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  fallback: ["system-ui", "arial"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
+  display: "swap",
+  fallback: ["helvetica", "sans-serif"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
