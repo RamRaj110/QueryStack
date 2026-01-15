@@ -76,22 +76,31 @@ const EditProfileForm = ({ user }: EditProfileFormProps) => {
     setIsUploading(true);
 
     try {
-      // Convert file to base64
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setUploadedImage(base64String);
-        form.setValue("image", base64String);
-        toast.success("Image uploaded successfully!");
-        setIsUploading(false);
-      };
-      reader.onerror = () => {
-        toast.error("Failed to read image file");
-        setIsUploading(false);
-      };
-      reader.readAsDataURL(file);
+      // Upload to Cloudinary via API
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error?.message || "Upload failed");
+      }
+
+      // Store the Cloudinary URL
+      const imageUrl = result.data.url;
+      setUploadedImage(imageUrl);
+      form.setValue("image", imageUrl);
+      toast.success("Image uploaded successfully!");
     } catch (error) {
-      toast.error("Failed to upload image");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to upload image"
+      );
+    } finally {
       setIsUploading(false);
     }
   };

@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ROUTES from "@/constant/route";
 import { User } from "@/Types/global";
 import UserAvatar from "../UserAvtar";
@@ -10,10 +12,19 @@ interface Props {
 }
 
 const UserCard = ({ user }: Props) => {
+  const router = useRouter();
   const { _id, name, image, username, reputation } = user;
 
+  const handleClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on the avatar link
+    if ((e.target as HTMLElement).closest("a")) {
+      return;
+    }
+    router.push(ROUTES.PROFILE(_id));
+  };
+
   return (
-    <Link href={ROUTES.PROFILE(_id)} className="block group">
+    <div onClick={handleClick} className="block group cursor-pointer">
       <article className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-3xl border border-border/50 bg-card/40 p-10 text-center transition-[transform,border-color,box-shadow,background-color] duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 dark:bg-card/20 backdrop-blur-md">
         <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-2xl transition-[opacity,transform,background-color] duration-700 group-hover:bg-primary/20 group-hover:scale-125 opacity-0 group-hover:opacity-100" />
         <div className="absolute -left-16 -bottom-16 h-48 w-48 rounded-full bg-indigo-500/5 blur-2xl transition-[opacity,transform,background-color] duration-700 group-hover:bg-indigo-500/10 group-hover:scale-125 opacity-0 group-hover:opacity-100" />
@@ -64,7 +75,7 @@ const UserCard = ({ user }: Props) => {
           </p>
         </div>
       </article>
-    </Link>
+    </div>
   );
 };
 

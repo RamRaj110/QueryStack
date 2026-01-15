@@ -54,7 +54,7 @@ const Collection = async ({ searchParams }: SearchParams) => {
             <LocalSearch
               route={ROUTES.COLLECTION}
               placeholder="Search saved questions..."
-              otherClasses="h-14 bg-card border-border/50 shadow-sm focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10"
+              otherClasses="h-10 bg-card border-border/50 shadow-sm focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10"
             />
           </div>
 

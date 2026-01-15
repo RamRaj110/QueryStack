@@ -103,7 +103,7 @@ const FindJobs = () => {
                 Find Your Dream Job 🚀
               </h1>
               <p className="text-muted-foreground text-lg mt-1">
-                Discover amazing opportunities from top companies
+                Comming soon...
               </p>
             </div>
           </div>

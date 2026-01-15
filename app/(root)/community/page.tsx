@@ -18,12 +18,12 @@ export const metadata = createMetadata({
 });
 
 async function Community({ searchParams }: RouteParams) {
-  const { page, pageSize, query, filter } = await searchParams;
+  const { page, pageSize, search, filter } = await searchParams;
 
   const { success, data, error } = await getUsers({
     page: Number(page) || 1,
     pageSize: Number(pageSize) || 10,
-    query,
+    query: search,
     filter,
   });
 
@@ -56,7 +56,7 @@ async function Community({ searchParams }: RouteParams) {
             <LocalSearch
               route={ROUTES.COMMUNITY}
               placeholder="Search for amazing minds..."
-              otherClasses="h-14 bg-card border-border/50 shadow-sm focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10"
+              otherClasses="h-10 bg-card border-border/50 shadow-sm focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10"
             />
           </div>
 

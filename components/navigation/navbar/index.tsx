@@ -64,7 +64,7 @@ const Navbar = async () => {
             )}
 
             <div className="sm:hidden">
-              <Theme />
+              <Theme compact />
             </div>
 
             <div className="flex items-center sm:hidden">

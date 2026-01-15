@@ -36,7 +36,7 @@ const RightSideBar = async () => {
               <div className="flex flex-col gap-5">
                 {hotQuestions.map((question) => (
                   <Link
-                    key={question.id}
+                    key={question._id}
                     href={ROUTES.QUESTION(question._id)}
                     className="group flex cursor-pointer items-start justify-between gap-4 transition-all"
                   >

@@ -270,7 +270,7 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
                 value="top-posts"
                 className="rounded-xl py-3 text-sm font-bold transition-[background-color,color,box-shadow] duration-300 data-[state=active]:bg-card data-[state=active]:text-primary data-[state=active]:shadow-lg dark:data-[state=active]:bg-secondary/60"
               >
-                Top Posts
+                Questions
               </TabsTrigger>
               <TabsTrigger
                 value="answers"

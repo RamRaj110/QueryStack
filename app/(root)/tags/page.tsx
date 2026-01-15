@@ -56,14 +56,14 @@ const Tags = async ({ searchParams }: RouteParams) => {
             <LocalSearch
               route={ROUTES.TAGS}
               placeholder="Search for tags..."
-              otherClasses="h-14 bg-card border-border/50 shadow-sm focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10"
+              otherClasses="h-10 bg-card border-border/50 shadow-sm focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10"
             />
           </div>
 
           <CommonFilter
             filters={TagFilters}
-            otherClasses="h-14 sm:min-w-[170px]"
-            containerClasses="flex"
+            otherClasses="h-16  sm:min-w-[170px]"
+            containerClasses="flex "
           />
         </div>
       </section>

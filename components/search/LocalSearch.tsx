@@ -58,7 +58,7 @@ function LocalSearch({ route, placeholder, otherClasses }: Props) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         type="text"
-        className="h-full w-full rounded-2xl border border-border/50 bg-secondary/20 pl-12 text-base transition-[border-color,ring-color,background-color] duration-300 placeholder:text-muted-foreground/60 focus-visible:ring-primary/20 focus-visible:border-primary/50"
+        className="h-full w-full p-3 rounded-2xl border border-border/50 bg-secondary/20 pl-12 text-base transition-[border-color,ring-color,background-color] duration-300 placeholder:text-muted-foreground/60 focus-visible:ring-primary/20 focus-visible:border-primary/50"
         placeholder={placeholder || "Search..."}
       />
     </div>
