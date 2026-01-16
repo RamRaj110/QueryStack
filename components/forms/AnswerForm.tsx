@@ -32,7 +32,6 @@ interface Props {
   questionContent: string;
 }
 const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
-  //   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAnswer, startTransition] = useTransition();
   const [isAISubmitting, setIsAISubmitting] = useState(false);
   const session = useSession();

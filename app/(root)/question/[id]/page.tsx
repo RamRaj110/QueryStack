@@ -212,18 +212,6 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
               />
             ))}
           </div>
-
-          {/* Actions Footer */}
-          <div className="mt-8 flex items-center gap-4 border-t border-border/50 pt-6">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-2 rounded-xl text-muted-foreground transition-colors duration-300 hover:text-primary hover:bg-primary/5"
-            >
-              <Share2 className="h-4 w-4" />
-              <span className="hidden sm:inline font-semibold">Share</span>
-            </Button>
-          </div>
         </div>
       </article>
 

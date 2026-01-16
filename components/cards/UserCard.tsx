@@ -16,7 +16,6 @@ const UserCard = ({ user }: Props) => {
   const { _id, name, image, username, reputation } = user;
 
   const handleClick = (e: React.MouseEvent) => {
-    // Don't navigate if clicking on the avatar link
     if ((e.target as HTMLElement).closest("a")) {
       return;
     }

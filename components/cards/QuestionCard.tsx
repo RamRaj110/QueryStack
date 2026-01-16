@@ -44,7 +44,7 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
           </span>
         </div>
         {showActionBtns && (
-          <div className="flex scale-90 opacity-0 transition-[transform,opacity] duration-300 group-hover:opacity-100 group-hover:scale-100">
+          <div className="flex scale-90 opacity-0 transition-[transform,opacity] duration-300 group-hover:opacity-100 group-hover:scale-100 relative z-20">
             <EditDeleteAction id={_id} type="question" />
           </div>
         )}
@@ -54,7 +54,7 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
         href={ROUTES.QUESTION ? ROUTES.QUESTION(_id) : "#"}
         className="block group/title"
       >
-        <h3 className="font-heading text-xl font-bold text-foreground transition-colors duration-300 group-hover/title:text-primary sm:text-2xl line-clamp-2 leading-tight">
+        <h3 className="font-heading text-xl font-bold text-foreground transition-colors duration-300 group-hover/title:text-primary sm:text-2xl line-clamp-2 leading-tight before:absolute before:inset-0 before:z-0">
           {title}
         </h3>
       </Link>
@@ -65,7 +65,7 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 relative z-10">
         {tags.map((tag, index) => (
           <TagCard key={index} id={tag._id} name={tag.name} compact={true} />
         ))}
@@ -75,7 +75,7 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
         {author ? (
           <Link
             href={ROUTES.PROFILE(author._id)}
-            className="flex items-center gap-2.5 transition-all hover:opacity-80"
+            className="flex items-center gap-2.5 transition-all hover:opacity-80 relative z-10"
           >
             <div className="relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-border/50 transition-all group-hover:ring-primary/30">
               {author.image && author?.image !== "undefined" ? (
