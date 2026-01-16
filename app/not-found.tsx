@@ -7,7 +7,7 @@ const NotFound = () => {
   return (
     <div className="flex min-h-[60vh] w-full flex-col items-center justify-center px-4">
       <Image
-        src="/somethingWrongImage.png"
+        src="/error.webp"
         alt="Page not found"
         width={300}
         height={220}

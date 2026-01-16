@@ -42,7 +42,7 @@ const MobileNavigation = async () => {
               <div className="relative h-12 w-12 overflow-hidden rounded-full  shadow-sm">
                 <Image
                   className="object-cover transition-transform group-hover:scale-110"
-                  src="/queryStackLogo.png"
+                  src="/logo.webp"
                   alt="Logo"
                   fill
                 />

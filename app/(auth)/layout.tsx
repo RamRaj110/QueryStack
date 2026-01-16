@@ -38,7 +38,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
                 <div className="relative">
                   <Image
                     className="rounded-full object-cover"
-                    src="/queryStackLogo.png"
+                    src="/logo.webp"
                     alt="Logo"
                     width={74}
                     height={74}
@@ -157,7 +157,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
               <div className="relative rounded-full  p-1">
                 <Image
                   className="rounded-full object-cover"
-                  src="/queryStackLogo.png"
+                  src="/logo.webp"
                   alt="Logo"
                   width={80}
                   height={80}
