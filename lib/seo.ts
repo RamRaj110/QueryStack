@@ -4,10 +4,10 @@ export const siteConfig = {
   name: "Query Stack",
   description:
     "A community-driven platform where developers connect, ask questions, share knowledge, and grow together. Join thousands of developers worldwide.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://querystack.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://query-stack-eight.vercel.app/",
   ogImage: "/og-image.png",
   links: {
-    github: "https://github.com/querystack",
+    github: "https://github.com/RamRaj110/QueryStack",
     twitter: "https://twitter.com/querystack",
   },
   keywords: [

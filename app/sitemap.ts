@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://querystack.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://query-stack-eight.vercel.app/";
 
   // Static routes
   const routes = [
