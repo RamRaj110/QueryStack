@@ -22,14 +22,12 @@ const outfit = Outfit({
   weight: ["400", "500", "600", "700"],
 });
 
-<meta
-  name="google-site-verification"
-  content="-qTf8c-5m5TuVmVxnSyC3MfR6vqmYkKjrcE2LQt7-W4"
-/>;
-
 export const metadata: Metadata = {
   title: "Query Stack",
   description: "A Next.js project using the App Router and Google Fonts.",
+  verification: {
+    google: "-qTf8c-5m5TuVmVxnSyC3MfR6vqmYkKjrcE2LQt7-W4",
+  },
   icons: {
     icon: [
       { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
