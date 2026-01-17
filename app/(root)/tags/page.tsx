@@ -18,6 +18,8 @@ export const metadata = createMetadata({
     "Explore programming topics and technologies on Query Stack. Browse questions by tags including JavaScript, Python, React, Node.js, and more. Find the best answers in your area of expertise.",
 });
 
+export const revalidate = 60;
+
 const Tags = async ({ searchParams }: RouteParams) => {
   const { page, pageSize, search: query, filter } = await searchParams;
 
