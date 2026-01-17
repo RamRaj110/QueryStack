@@ -29,10 +29,10 @@ const Votes = ({
   const { success, data } = use(hasVotePromise);
 
   const [hasUpvoted, setHasUpvoted] = useState(
-    success && data?.hasUpvoted ? data.hasUpvoted : false
+    success && data?.hasUpvoted ? data.hasUpvoted : false,
   );
   const [hasDownvoted, setHasDownvoted] = useState(
-    success && data?.hasDownvoted ? data.hasDownvoted : false
+    success && data?.hasDownvoted ? data.hasDownvoted : false,
   );
   const [voteCount, setVoteCount] = useState(upvotes - downvotes);
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +82,7 @@ const Votes = ({
         }
 
         toast.success(
-          wasDownvoted ? "Downvote removed" : "Downvoted successfully"
+          wasDownvoted ? "Downvote removed" : "Downvoted successfully",
         );
       }
     } catch (error) {
@@ -99,7 +99,7 @@ const Votes = ({
         size="sm"
         disabled={isLoading}
         onClick={() => handleVote("upvote")}
-        className={`text-muted-foreground transition-colors ${
+        className={`text-muted-foreground transition-colors cursor-pointer ${
           hasUpvoted
             ? "text-green-600 hover:text-green-700"
             : "hover:text-green-600"
@@ -117,7 +117,7 @@ const Votes = ({
         size="sm"
         disabled={isLoading}
         onClick={() => handleVote("downvote")}
-        className={`text-muted-foreground transition-colors ${
+        className={`text-muted-foreground transition-colors cursor-pointer ${
           hasDownvoted
             ? "text-red-600 hover:text-red-700"
             : "hover:text-red-600"

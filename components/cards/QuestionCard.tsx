@@ -8,6 +8,7 @@ import TagCard from "./TagCard";
 import Metric from "../Matric";
 import { Question } from "@/Types/global";
 import EditDeleteAction from "../user/EditDeleteAction";
+import UserAvatar from "../UserAvtar";
 
 interface Props {
   question: Question;
@@ -77,23 +78,18 @@ const QuestionCard = ({ question, showActionBtns = false }: Props) => {
             href={ROUTES.PROFILE(author._id)}
             className="flex items-center gap-2.5 transition-all hover:opacity-80 relative z-10"
           >
-            <div className="relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-border/50 transition-all group-hover:ring-primary/30">
-              {author.image && author?.image !== "undefined" ? (
-                <Image
-                  src={author.image}
-                  alt={author.name}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-primary/10 text-[12px] font-bold text-primary">
-                  {author.name ? author.name[0].toUpperCase() : "?"}
-                </div>
-              )}
+            <div className="flex items-center gap-2.5 relative z-10">
+              <UserAvatar
+                id={author._id}
+                name={author.name}
+                imageUrl={author.image}
+                className="h-8 w-8 rounded-full ring-2 ring-border/50 transition-all group-hover:ring-primary/30"
+                noLink={true}
+              />
+              <p className="text-sm font-semibold text-foreground/90">
+                {author.name}
+              </p>
             </div>
-            <p className="text-sm font-semibold text-foreground/90">
-              {author.name}
-            </p>
           </Link>
         ) : (
           <div className="flex items-center gap-2.5">

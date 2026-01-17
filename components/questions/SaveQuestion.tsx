@@ -52,7 +52,7 @@ const SaveQuestion = ({
       toast.success(
         updatedData?.saved
           ? "Question saved successfully"
-          : "Question unsaved successfully"
+          : "Question unsaved successfully",
       );
     } catch (error) {
       toast.error("Failed to save question");
@@ -65,7 +65,7 @@ const SaveQuestion = ({
     <Button
       variant="ghost"
       size="sm"
-      className="text-muted-foreground hover:text-primary"
+      className="text-muted-foreground hover:text-primary cursor-pointer"
       onClick={handleSave}
       disabled={isLoading}
     >

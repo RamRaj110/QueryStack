@@ -26,6 +26,7 @@ import { after } from "next/server";
 import React, { Suspense } from "react";
 import { RouteParams } from "@/Types/global";
 import { createMetadata } from "@/lib/seo";
+import UserAvatar from "@/components/UserAvtar";
 
 export async function generateMetadata({ params }: RouteParams) {
   const { id } = await params;
@@ -110,21 +111,13 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
               className="group flex items-center gap-4"
             >
               <div className="relative">
-                <div className="absolute inset-0 animate-pulse rounded-full bg-primary/20 blur-md opacity-50" />
-                <div className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-border transition-[ring-color,transform] duration-300 group-hover:ring-primary/50 group-hover:scale-105">
-                  {question.author?.image ? (
-                    <Image
-                      src={question.author.image}
-                      alt={question.author.name || "Author"}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-primary/10 text-lg font-bold text-primary">
-                      {question.author?.name?.[0]?.toUpperCase() || "?"}
-                    </div>
-                  )}
-                </div>
+                <UserAvatar
+                  id={question.author?._id || ""}
+                  name={question.author?.name || "Anonymous"}
+                  imageUrl={question.author?.image}
+                  className="h-14 w-14 rounded-full ring-2 ring-border transition-[ring-color,transform] duration-300 group-hover:ring-primary/50 group-hover:scale-105"
+                  noLink={true}
+                />
               </div>
               <div className="flex flex-col gap-1">
                 <p className="text-lg font-bold text-foreground transition-colors duration-300 group-hover:text-primary">
