@@ -30,7 +30,6 @@ import { useTheme } from "next-themes";
 import React, { useState, useEffect } from "react";
 import { basicDark } from "cm6-theme-basic-dark";
 
-// --- Types ---
 interface EditorProps {
   value: string;
   fieldChange: (value: string) => void;

@@ -86,7 +86,6 @@ const DataRenderer = <T,>({
   empty = EMPTY_QUESTION,
   render,
 }: Props<T>) => {
-  // 1. Handle Error State
   if (!success) {
     return (
       <StateSkeleton
