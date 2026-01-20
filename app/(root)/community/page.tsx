@@ -17,6 +17,8 @@ export const metadata = createMetadata({
     "Join a thriving community of developers on Query Stack. Connect with talented programmers, explore developer profiles, build your professional network, and collaborate with peers worldwide.",
 });
 
+export const revalidate = 60;
+
 async function Community({ searchParams }: RouteParams) {
   const { page, pageSize, search, filter } = await searchParams;
 

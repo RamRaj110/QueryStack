@@ -31,10 +31,11 @@ import Questions, { IQuestionDoc } from "@/database/question.modules";
 import dbConnect from "../mongoose";
 import Vote from "@/database/vote.modules";
 import { Answer, Collection } from "@/database";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { CACHE_TAGS, CACHE_REVALIDATE } from "../cache";
 
 export async function createQuestion(
-  params: CreateQuestionParams
+  params: CreateQuestionParams,
 ): Promise<ActionResponse<IQuestionDoc>> {
   const validationResult = await action({
     params,
@@ -53,7 +54,7 @@ export async function createQuestion(
   try {
     const [question] = await Questions.create(
       [{ title, content, author: userId }],
-      { session }
+      { session },
     );
 
     if (!question) {
@@ -66,7 +67,7 @@ export async function createQuestion(
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: `^${tag}$`, $options: "i" } },
         { $setOnInsert: { name: tag }, $inc: { questionCount: 1 } },
-        { new: true, upsert: true, session }
+        { new: true, upsert: true, session },
       );
       tagIds.push(existingTag.id);
       tagQustionDocuments.push({
@@ -78,13 +79,18 @@ export async function createQuestion(
     await Questions.findByIdAndUpdate(
       question.id,
       { $push: { tags: { $each: tagIds } } },
-      { session }
+      { session },
     );
     await session.commitTransaction();
+
+    // Revalidate caches after creating a question
+    revalidateTag(CACHE_TAGS.QUESTIONS, "max");
+    revalidateTag(CACHE_TAGS.HOT_QUESTIONS, "max");
+
     return {
       success: true,
       data: JSON.parse(
-        JSON.stringify({ id: question.id, ...question.toObject() })
+        JSON.stringify({ id: question.id, ...question.toObject() }),
       ),
     };
   } catch (error) {
@@ -96,7 +102,7 @@ export async function createQuestion(
 }
 
 export async function editQuestion(
-  params: EditQuestionParams
+  params: EditQuestionParams,
 ): Promise<ActionResponse<Question>> {
   const validationResult = await action({
     params,
@@ -128,14 +134,14 @@ export async function editQuestion(
     const tagToAdd = tags.filter(
       (tag) =>
         !question.tags.some((t: ITagDoc) =>
-          t.name.toLocaleLowerCase().includes(tag.toLocaleLowerCase())
-        )
+          t.name.toLocaleLowerCase().includes(tag.toLocaleLowerCase()),
+        ),
     );
     const tagsToRemove = question.tags.filter(
       (tag: ITagDoc) =>
         !tags.some(
-          (t) => t.toLocaleLowerCase() === tag.name.toLocaleLowerCase()
-        )
+          (t) => t.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
+        ),
     );
 
     const newTagDocuments = [];
@@ -144,7 +150,7 @@ export async function editQuestion(
         const existingTag = await Tag.findOneAndUpdate(
           { name: { $regex: new RegExp(`^${tag}$`, "i") } },
           { $setOnInsert: { name: tag }, $inc: { questionCount: 1 } },
-          { new: true, upsert: true, session }
+          { new: true, upsert: true, session },
         );
         if (existingTag) {
           newTagDocuments.push({
@@ -160,18 +166,18 @@ export async function editQuestion(
       await Tag.updateMany(
         { _id: { $in: tagIdsToRemove } },
         { $inc: { questionCount: -1 } },
-        { session }
+        { session },
       );
       await TagQuestion.deleteMany(
         { question: question.id, tag: { $in: tagIdsToRemove } },
-        { session }
+        { session },
       );
       question.tags = question.tags.filter(
         (tag: monngoose.Types.ObjectId) =>
           !tagIdsToRemove.some(
             (id: monngoose.Types.ObjectId) =>
-              id.toString() === tag._id.toString()
-          )
+              id.toString() === tag._id.toString(),
+          ),
       );
     }
     if (newTagDocuments.length > 0) {
@@ -182,15 +188,22 @@ export async function editQuestion(
     await session.commitTransaction();
 
     const populatedQuestion = await Questions.findById(question.id).populate(
-      "tags"
+      "tags",
     );
+
+    // Revalidate caches after editing a question
+    revalidateTag(CACHE_TAGS.QUESTIONS, "max");
+    revalidateTag(CACHE_TAGS.QUESTION, "max");
+    revalidateTag(`${CACHE_TAGS.QUESTION}-${question.id}`, "max");
+    revalidateTag(CACHE_TAGS.HOT_QUESTIONS, "max");
+
     return {
       success: true,
       data: JSON.parse(
         JSON.stringify({
           id: populatedQuestion.id,
           ...populatedQuestion.toObject(),
-        })
+        }),
       ),
     };
   } catch (error) {
@@ -201,8 +214,31 @@ export async function editQuestion(
   }
 }
 
+// Internal function for fetching a single question
+async function getQuestionInternal(
+  id: string,
+): Promise<ActionResponse<Question>> {
+  try {
+    await dbConnect();
+    const question = await Questions.findById(id)
+      .populate("tags")
+      .populate("author", "_id name image")
+      .lean();
+    if (!question) {
+      throw new Error("Question not found");
+    }
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify({ id: question._id, ...question })),
+    };
+  } catch (error) {
+    return handleError(error as Error) as ErrorResponse;
+  }
+}
+
+// Cached version of getQuestion
 export async function getQuestion(
-  params: getQuestionsParams
+  params: getQuestionsParams,
 ): Promise<ActionResponse<Question>> {
   const validationResult = await action({
     params,
@@ -218,35 +254,23 @@ export async function getQuestion(
   // Extract the first ID from the array (validation accepts array but we only use the first one)
   const id = questionId[0];
 
-  try {
-    const question = await Questions.findById(id)
-      .populate("tags")
-      .populate("author", "_id name image");
-    if (!question) {
-      throw new Error("Question not found");
-    }
-    return {
-      success: true,
-      data: JSON.parse(
-        JSON.stringify({ id: question.id, ...question.toObject() })
-      ),
-    };
-  } catch (error) {
-    return handleError(error as Error) as ErrorResponse;
-  }
+  // Cache individual questions for 5 minutes
+  const cachedGetQuestion = unstable_cache(
+    async () => getQuestionInternal(id),
+    [`question-${id}`],
+    {
+      revalidate: CACHE_REVALIDATE.LONG, // 5 minutes
+      tags: [CACHE_TAGS.QUESTION, `${CACHE_TAGS.QUESTION}-${id}`],
+    },
+  );
+
+  return cachedGetQuestion();
 }
 
-export async function getQuestions(
-  params: PaginatedSearchParams
+// Internal function that performs the actual database query
+async function getQuestionsInternal(
+  params: PaginatedSearchParams,
 ): Promise<ActionResponse<{ questions: Question[]; isNext: boolean }>> {
-  const validationResult = await action({
-    params,
-    schema: PaginatedSearchParamsSchema,
-  });
-
-  if (validationResult instanceof Error) {
-    return handleError(validationResult) as ErrorResponse;
-  }
   const { page = 1, pageSize = 10, query, filter, sort } = params;
   const skip = (Number(page) - 1) * pageSize;
   const limit = Number(pageSize) + 1;
@@ -281,6 +305,7 @@ export async function getQuestions(
   }
 
   try {
+    await dbConnect();
     const totalQuestions = await Questions.countDocuments(filterQuery);
     const questions = await Questions.find(filterQuery)
       .populate("tags", "name")
@@ -303,8 +328,38 @@ export async function getQuestions(
   }
 }
 
+// Cached version of getQuestions with 60-second revalidation
+export async function getQuestions(
+  params: PaginatedSearchParams,
+): Promise<ActionResponse<{ questions: Question[]; isNext: boolean }>> {
+  // Validate params first (validation should not be cached)
+  const validationResult = await action({
+    params,
+    schema: PaginatedSearchParamsSchema,
+  });
+
+  if (validationResult instanceof Error) {
+    return handleError(validationResult) as ErrorResponse;
+  }
+
+  // Create cache key based on query parameters
+  const cacheKey = `questions-${params.page || 1}-${params.pageSize || 10}-${params.query || "all"}-${params.filter || "newest"}`;
+
+  // Use unstable_cache to cache the database query
+  const cachedGetQuestions = unstable_cache(
+    async () => getQuestionsInternal(params),
+    [cacheKey],
+    {
+      revalidate: CACHE_REVALIDATE.MEDIUM, // 60 seconds
+      tags: [CACHE_TAGS.QUESTIONS],
+    },
+  );
+
+  return cachedGetQuestions();
+}
+
 export async function increamentView(
-  params: IncreamentViewParams
+  params: IncreamentViewParams,
 ): Promise<ActionResponse<{ views: number }>> {
   const validationResult = await action({
     params,
@@ -322,7 +377,7 @@ export async function increamentView(
     const question = await Questions.findByIdAndUpdate(
       questionId,
       { $inc: { views: 1 } },
-      { new: true }
+      { new: true },
     );
 
     if (!question) {
@@ -338,13 +393,14 @@ export async function increamentView(
   }
 }
 
-export async function getHotQuestions(): Promise<ActionResponse<Question[]>> {
+// Internal function for fetching hot questions
+async function getHotQuestionsInternal(): Promise<ActionResponse<Question[]>> {
   try {
     await dbConnect();
     const questions = await Questions.find()
       .sort({ views: -1, upvotes: -1 })
-      .limit(10)
-      .limit(5);
+      .limit(5)
+      .lean();
     return {
       success: true,
       data: JSON.parse(JSON.stringify(questions)),
@@ -354,8 +410,22 @@ export async function getHotQuestions(): Promise<ActionResponse<Question[]>> {
   }
 }
 
+// Cached version of getHotQuestions with 5-minute revalidation
+export async function getHotQuestions(): Promise<ActionResponse<Question[]>> {
+  const cachedGetHotQuestions = unstable_cache(
+    async () => getHotQuestionsInternal(),
+    ["hot-questions"],
+    {
+      revalidate: CACHE_REVALIDATE.LONG, // 5 minutes
+      tags: [CACHE_TAGS.HOT_QUESTIONS],
+    },
+  );
+
+  return cachedGetHotQuestions();
+}
+
 export async function deleteQuestion(
-  params: DeleteQuestionParams
+  params: DeleteQuestionParams,
 ): Promise<ActionResponse<{ questionId: string }>> {
   const validationResult = await action({
     params,
@@ -367,7 +437,7 @@ export async function deleteQuestion(
     return handleError(validationResult) as ErrorResponse;
   }
   const { questionId } = validationResult.params!;
-  const {user}=validationResult.session!;
+  const { user } = validationResult.session!;
   const session = await monngoose.startSession();
 
   try {
@@ -376,38 +446,46 @@ export async function deleteQuestion(
     if (!question) {
       throw new Error("Question not found");
     }
-    if(question.author.toString()!==user?.id){
+    if (question.author.toString() !== user?.id) {
       throw new Error("Unauthorized");
     }
-    await Collection.deleteMany({question:questionId}).session(session);
-    await TagQuestion.deleteMany({question:questionId}).session(session);
-    if(question.tags.length>0){
+    await Collection.deleteMany({ question: questionId }).session(session);
+    await TagQuestion.deleteMany({ question: questionId }).session(session);
+    if (question.tags.length > 0) {
       await Tag.updateMany(
-        {_id:{$in:question.tags}},
-        {$inc:{questions:-1}}).session(session);
+        { _id: { $in: question.tags } },
+        { $inc: { questions: -1 } },
+      ).session(session);
     }
     await Vote.deleteMany({
-      actionId:questionId,
-      actionType:"question"
-    }).session(session)
-    const answer = await Answer.find({question:questionId}).session(session);
-    if(answer.length>0){
-      await Answer.deleteMany({question:questionId}).session(session);
+      actionId: questionId,
+      actionType: "question",
+    }).session(session);
+    const answer = await Answer.find({ question: questionId }).session(session);
+    if (answer.length > 0) {
+      await Answer.deleteMany({ question: questionId }).session(session);
       await Vote.deleteMany({
-        actionId:{$in:answer.map((a)=>a.id)},
-        actionType:"answer"
+        actionId: { $in: answer.map((a) => a.id) },
+        actionType: "answer",
       }).session(session);
     }
     await Questions.findByIdAndDelete(questionId).session(session);
     await session.commitTransaction();
     session.endSession();
+
+    // Revalidate caches after deleting a question
+    revalidateTag(CACHE_TAGS.QUESTIONS, "max");
+    revalidateTag(CACHE_TAGS.QUESTION, "max");
+    revalidateTag(`${CACHE_TAGS.QUESTION}-${questionId}`, "max");
+    revalidateTag(CACHE_TAGS.HOT_QUESTIONS, "max");
+
     revalidatePath(`/profile/${user?.id}`);
     return {
       success: true,
       data: { questionId: question.id },
     };
   } catch (error) {
-    await session.abortTransaction()
+    await session.abortTransaction();
     session.endSession();
     return handleError(error as Error) as ErrorResponse;
   }

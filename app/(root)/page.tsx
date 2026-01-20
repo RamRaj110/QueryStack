@@ -17,6 +17,8 @@ export const metadata = createMetadata({
     "Browse thousands of programming questions and answers from developers worldwide. Ask technical questions, share knowledge, and learn from the community on Query Stack.",
 });
 
+export const revalidate = 60;
+
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
