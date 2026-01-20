@@ -21,8 +21,8 @@ const TagCard = ({
   compact,
   children,
 }: Props) => {
-  const iconClass = getIconClassName(name);
-  const description = getTechDescription(name);
+  const iconClass = React.useMemo(() => getIconClassName(name), [name]);
+  const description = React.useMemo(() => getTechDescription(name), [name]);
   if (compact) {
     return (
       <Link
