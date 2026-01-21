@@ -29,9 +29,9 @@ const TagCard = ({
         href={ROUTES.TAG(id)}
         className="flex items-center justify-between gap-3 group"
       >
-        <Badge className="bg-secondary/40 text-muted-foreground hover:bg-primary/20 hover:text-primary rounded-xl border-border/50 px-3 py-1.5 transition-all group-hover:scale-105 active:scale-95 shadow-none">
+        <Badge className="bg-secondary/40 text-muted-foreground hover:bg-primary/20 hover:text-primary rounded-xl border-border/50 px-3 py-1.5 transition-colors duration-200 shadow-none">
           <div className="flex items-center gap-2">
-            <i className={`${iconClass} text-xs transition-colors`}></i>
+            <i className={`${iconClass} text-xs`}></i>
             <span className="text-[10px] font-bold uppercase tracking-wider">
               {name}
             </span>
@@ -39,7 +39,7 @@ const TagCard = ({
         </Badge>
 
         {showCount && (
-          <p className="text-xs font-bold text-muted-foreground/60 group-hover:text-primary transition-colors">
+          <p className="text-xs font-bold text-muted-foreground/60 group-hover:text-primary transition-colors duration-200">
             {questions}+
           </p>
         )}
