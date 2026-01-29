@@ -10,9 +10,7 @@ const AskQuestion = async () => {
 
   return (
     <div className="flex flex-col gap-10">
-      {/* --- HERO SECTION --- */}
       <section className="relative overflow-hidden rounded-3xl border border-border/40 bg-linear-to-br from-primary/5 via-background to-background p-8 sm:p-12">
-        {/* Animated Background Glow */}
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 

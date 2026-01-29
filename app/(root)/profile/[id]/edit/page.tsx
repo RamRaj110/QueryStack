@@ -11,8 +11,6 @@ const EditProfile = async ({ params }: RouteParams) => {
   if (!id) notFound();
 
   const session = await auth();
-
-  // Only allow users to edit their own profile
   if (!session?.user?.id || session.user.id !== id) {
     redirect(`/profile/${id}`);
   }

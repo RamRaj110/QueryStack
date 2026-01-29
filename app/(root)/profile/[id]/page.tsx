@@ -117,15 +117,12 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
 
   return (
     <div className="flex flex-col gap-10">
-      {/* --- HERO PROFILE CARD --- */}
       <section className="relative overflow-hidden rounded-3xl border border-border/40 bg-linear-to-br from-primary/5 via-background to-background p-8 sm:p-12">
-        {/* Animated Background Glow */}
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
         <div className="relative z-10">
           <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
-            {/* Avatar with Glow Effect */}
             <div className="relative">
               <div className="absolute inset-0 animate-pulse rounded-full bg-primary/20 blur-xl" />
               <div className="relative rounded-full border-4 border-background p-1.5 shadow-2xl ring-2 ring-primary/20">
@@ -137,7 +134,6 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
                   fallbackClassName="text-4xl sm:text-5xl font-bold bg-linear-to-br from-primary to-primary/60 text-primary-foreground"
                 />
               </div>
-              {/* Reputation Badge */}
               <div className="absolute -bottom-2 -right-2 flex h-16 w-16 items-center justify-center rounded-full border-4 border-background bg-linear-to-br from-yellow-500 to-orange-500 shadow-lg">
                 <div className="flex flex-col items-center">
                   <Award size={16} className="text-white mb-0.5" />
@@ -148,7 +144,6 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
               </div>
             </div>
 
-            {/* User Info */}
             <div className="flex-1 text-center sm:text-left space-y-4">
               <div>
                 <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
@@ -159,7 +154,6 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
                 </p>
               </div>
 
-              {/* Profile Metadata */}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
                 {portfolio && (
                   <ProfileLink
@@ -174,7 +168,7 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
                     icon={CalendarDays}
                     title={`Joined ${new Date(createdAt).toLocaleDateString(
                       "en-US",
-                      { month: "short", year: "numeric" }
+                      { month: "short", year: "numeric" },
                     )}`}
                   />
                 )}
@@ -188,7 +182,6 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
               )}
             </div>
 
-            {/* Edit Profile Button */}
             {session?.user?.id === id && (
               <Link href={`/profile/${id}/edit`}>
                 <Button

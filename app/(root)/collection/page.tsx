@@ -29,7 +29,6 @@ const Collection = async ({ searchParams }: SearchParams) => {
   const { collection, isNext } = data || {};
   return (
     <div className="flex flex-col gap-10">
-      {/* --- HERO SECTION --- */}
       <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-primary/5 via-background to-background p-8 border border-border/40 sm:p-12">
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
