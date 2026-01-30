@@ -96,16 +96,12 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* --- QUESTION CARD --- */}
       <article className="relative overflow-hidden rounded-3xl border border-border/40 bg-card/40 p-6 sm:p-8 backdrop-blur-sm">
-        {/* Decorative Elements */}
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-indigo-500/5 blur-3xl" />
 
         <div className="relative z-10">
-          {/* Author \u0026 Actions Header */}
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-            {/* Author Info */}
             <Link
               href={ROUTES.PROFILE(question.author?._id || "")}
               className="group flex items-center gap-4"
@@ -130,7 +126,6 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
               </div>
             </Link>
 
-            {/* Vote \u0026 Save Actions */}
             <div className="flex items-center gap-3">
               <Suspense
                 fallback={
@@ -158,12 +153,10 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
             </div>
           </div>
 
-          {/* Question Title */}
           <h1 className="mt-8 text-2xl font-extrabold leading-tight text-foreground sm:text-3xl lg:text-4xl">
             {question.title}
           </h1>
 
-          {/* Stats Row */}
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 rounded-lg bg-blue-500/10 px-4 py-2 border border-blue-500/20">
               <Eye className="h-4 w-4 text-blue-500" />
@@ -186,15 +179,12 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
             </div>
           </div>
 
-          {/* Divider */}
           <div className="my-8 h-px bg-border/50" />
 
-          {/* Question Content */}
           <div className="prose prose-sm dark:prose-invert max-w-none sm:prose-base lg:prose-lg">
             <Preview content={question.content} />
           </div>
 
-          {/* Tags */}
           <div className="mt-8 flex flex-wrap gap-2">
             {question.tags.map((tag) => (
               <TagCard
@@ -208,7 +198,6 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
         </div>
       </article>
 
-      {/* --- ANSWER FORM SECTION --- */}
       <section className="rounded-2xl border border-border/40 bg-card/40 p-6 sm:p-8 backdrop-blur-sm">
         <div className="mb-6 flex items-center gap-3">
           <div className="h-8 w-1.5 rounded-full bg-linear-to-b from-primary to-primary/40" />
@@ -221,7 +210,6 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
         />
       </section>
 
-      {/* --- ANSWERS SECTION --- */}
       <section>
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
