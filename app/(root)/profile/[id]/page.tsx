@@ -195,10 +195,7 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
           </div>
         </div>
       </section>
-
-      {/* --- STATS CARDS --- */}
       <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Questions Card */}
         <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/40 p-6 shadow-sm transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-500/5 backdrop-blur-sm">
           <div className="absolute inset-0 -z-10 bg-linear-to-br from-blue-500/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <div className="flex items-center gap-5">

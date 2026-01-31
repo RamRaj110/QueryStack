@@ -59,7 +59,6 @@ const TagDetails = async ({ params, searchParams }: RouteParams) => {
         </div>
       </section>
 
-      {/* SEARCH AND FILTER */}
       <section className="mt-8 flex justify-between gap-4 max-sm:flex-col max-sm:items-center">
         <LocalSearch
           route={ROUTES.TAG(id)}
@@ -74,7 +73,6 @@ const TagDetails = async ({ params, searchParams }: RouteParams) => {
         />
       </section>
 
-      {/* QUESTIONS LIST */}
       <DataRenderer
         success={success}
         error={error}
@@ -89,7 +87,6 @@ const TagDetails = async ({ params, searchParams }: RouteParams) => {
         )}
       />
 
-      {/* PAGINATION */}
       <Pagination page={page} isNext={isNext || false} />
     </>
   );
