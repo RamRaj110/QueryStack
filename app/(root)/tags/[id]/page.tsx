@@ -34,7 +34,6 @@ const TagDetails = async ({ params, searchParams }: RouteParams) => {
 
   return (
     <>
-      {/* TAG HEADER */}
       <section className="flex w-full flex-col gap-6">
         <div className="flex items-start gap-4">
           <div className="rounded-lg bg-secondary p-4">
